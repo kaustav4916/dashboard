@@ -1,0 +1,273 @@
+<div ng-controller="contactContrl">
+
+<p>Search Name: {{ searchname }}</p>
+        
+
+           <ul style="padding:0;
+              margin:2px 5px; 
+              list-style:none; 
+              border:0; 
+              float:left; 
+              width:100%;">
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; ">User Name</li>
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; "><input type="text"  ng-model="username" placeholder="Enter the username" /></li>
+          </ul>
+
+
+          <ul style="padding:0;
+              margin:2px 5px; 
+              list-style:none; 
+              border:0; 
+              float:left; 
+              width:100%;">
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; ">First Name</li>
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; "><input type="text"  ng-model="firstname" placeholder="Enter the firstname" /></li>
+          </ul>
+
+
+
+
+          <ul style="padding:0;
+              margin:2px 5px; 
+              list-style:none; 
+              border:0; 
+              float:left; 
+              width:100%;">
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; ">Last Name</li>
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; "><input type="text"  ng-model="lastname" placeholder="Enter the lastname" /></li>
+          </ul>
+
+
+          
+          <ul style="padding:0;
+              margin:2px 5px; 
+              list-style:none; 
+              border:0; 
+              float:left; 
+              width:100%;">
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; ">Contact</li>
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; "><input type="tel" maxlength="10" ng-model="phnnumber" placeholder="Enter your number"/></li>
+          </ul>
+          <ul style="padding:0;
+              margin:2px 5px; 
+              list-style:none; 
+              border:0; 
+              float:left; 
+              width:100%;">
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; ">Email Id</li>
+              <li style="width:50%; 
+              float:left; 
+              display:inline-block; "  ><li><input type="email" name="myAddress" ng-model="email" placeholder="Enter the email id">
+
+                                            <span ng-show="myAddress.$error.email">Not a valid e-mail address</span></li>
+          </ul>
+          <ul style="padding:0;
+              margin:2px 5px; 
+              list-style:none; 
+              border:0; 
+              float:left; 
+              width:100%;">
+              <li></li><li><button type="button" class="btn btn-primary" ng-click="submit()">Add Data</button></li>
+          </ul>
+         
+
+<form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search for name " ng-model="searchname ">
+      </div>      
+    </div>
+</form>
+        <!--CREATE A TABLE-->
+        <table class="table table-bordered table-striped" > 
+            <tr>
+
+                <th>Select</th>
+                <th><a  ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                 UserName
+                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                </a></th>     
+                                          
+                        <th>First Name</th>
+                        <th>Last  Name</th>
+                        <th>Email ID</th>
+                        <th>Contact</th>
+                        <th>Update</th>
+                        <th>Add Task </th>
+                        
+            </tr>
+             
+
+            <tr ng-repeat="movies in movieArray | orderBy:sortType:sortReverse | filter:searchname | filter:{username:username} | filter: movie"    ng-class="{'green': movies.name == 'ABC123', 'red': movies.checked == true}" ng-init="getDetailsOfUsers()">
+                <!-- <td><label>{{$index + 1}}</label></td> -->
+                
+                <td><input type="checkbox" ng-model="movies.Remove"/></td>
+
+                <td>
+                     <label><div ng-hide="editingmovieArray[movies.id]">{{movies.username}}</div>
+                    <div ng-show="editingmovieArray[movies.id]"><input type="text" ng-model="movies.username" /></div>
+
+                    </label>
+                </td>
+
+                <td>
+                     <label><div ng-hide="editingmovieArray[movies.id]">{{movies.firstname }}</div>
+                    <div ng-show="editingmovieArray[movies.id]"><input type="text" ng-model="movies.firstname" /></div>
+
+                    </label>
+                </td>
+                
+                 <td>
+                     <label><div ng-hide="editingmovieArray[movies.id]">{{movies.lastname}}</div>
+                    <div ng-show="editingmovieArray[movies.id]"><input type="text" ng-model="movies.lastname" /></div>
+
+                    </label>
+                </td>
+
+                <td>
+                     <label><div ng-hide="editingmovieArray[movies.id]">{{movies.email }}</div>
+                    <div ng-show="editingmovieArray[movies.id]"><input type="text" ng-model="movies.email" /></div>
+
+                    </label>
+                </td>
+
+                 <td>
+                     <label><div ng-hide="editingmovieArray[movies.id]">{{movies.phnnumber}}</div>
+                            <div ng-show="editingmovieArray[movies.id]"><input maxlength="10" type="text" ng-model="movies.phnnumber" /></div>
+
+                    </label>
+                </td>
+                  
+                               
+                
+                <td>
+                    <label>
+                        <button class="btn btn-warning"  ng-hide="editingmovieArray[movies.id]" ng-click="modify(movies)">Modify</button>
+                        <button class="btn btn-success"  ng-show="editingmovieArray[movies.id]" ng-click="update(movies)">Update</button>
+                    </label>
+                                
+                </td>
+                 
+                  <td >
+                    <label>
+                      <button  class="btn btn-success" focus-index="1"  data-toggle="modal" focus-element="autofocus" data-target=".bs-example-modal-lg">
+                      Call</button>
+
+
+
+                        <label>
+                           <button class="btn btn-warning">Meeting<i class="fa fa-clock-o"></i></button>
+                       </label>
+                       <label>
+                           <button class="btn btn-primary">Sale <i class="fa fa-bar-chart"></i></button>
+                       </label>
+                    </label>      
+                </td>
+            </tr>
+          
+         
+        </table>
+
+  <div class="modal-bg">
+    <div class="dialog">
+    <!-- Large modal -->
+      
+
+      <div class="modal fade bs-example-modal-lg"  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-toggle="modal">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Call Details</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+          <thead>
+            <tr >
+              <!-- <th>#</th> -->
+              <th>UserName</th>
+              <th>FirstName</th>
+              <th>Lastname</th>
+              <th>EmailId</th>
+              <th>Contact</th>
+              <!-- <th>Time</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr  ng-repeat="movies in movieArray">
+              <td>{{movies.username}}</td>
+              <td>{{movies.firstname }}</td>
+              <td>{{movies.lastname}}</td>
+              <td>{{movies.email }}</td>
+              <td>{{movies.phnnumber}}</td>
+              <!-- <td>Table cell</td>
+              <td>Table cell</td> -->
+            </tr>
+           
+          </tbody>
+        </table>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+         <!--  <button type="button" class="btn btn-primary">ok</button> -->
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      </div>
+  <div focus-highlight=""></div>
+
+
+
+
+
+ 
+  <!--  <h1 align="center">
+        <ul class="pagination">
+        <li class="disabled" ng-show="showPrev"><a  ng-click="prev(movie)">&laquo;</a></li>
+        <li movieArray-ng-repeat="index in itemArray"><a href="#">{{index}}</a></li>
+        <li class="disabled" ng-show="showNext"><a  ng-click="next(movie)">&raquo;</a></li>
+       </ul>
+   </h1> -->
+
+    
+
+    <div>
+            <!-- <button ng-click="submit()">Submit movieArray</button> -->  
+      <button type="button" class="btn btn-danger" ng-click="removeRow()">Remove</button>
+    </div>
+    
+
+
+        <div id="display" style="padding:10px 0;">{{display}}</div>
+    
+
+ <p class="text-center">
+   Powered by <a href="https://capitalquotient.com/" target="_blank">CapitalQuotient.com</a>
+ </p>
+
+</div>
+
+
+<script type="text/javascript" src="js/index.js"></script>

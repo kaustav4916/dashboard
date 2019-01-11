@@ -1,0 +1,126 @@
+<div ng-controller="ReimbursementController">
+	
+
+
+<p>Search Name: {{ searchname }}</p>
+
+
+        <ul style="padding:0;
+            margin:2px 5px; 
+            list-style:none; 
+            border:0; 
+            float:left; 
+            width:100%;">
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; "> Name</li>
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; "><input type="text" ng-model="name" /></li>
+        </ul>
+        <ul style="padding:0;
+            margin:2px 5px; 
+            list-style:none; 
+            border:0; 
+            float:left; 
+            width:100%;">
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; ">Gift Value</li>
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; "><input type="currency" ng-model="gift" /></li>
+        </ul>
+        <ul style="padding:0;
+            margin:2px 5px; 
+            list-style:none; 
+            border:0; 
+            float:left; 
+            width:100%;">
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; ">phnnumber Number</li>
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; "><input type="number" ng-model="phnnumber" /></li>
+        </ul>
+        <ul style="padding:0;
+            margin:2px 5px; 
+            list-style:none; 
+            border:0; 
+            float:left; 
+            width:100%;">
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; ">Email Id</li>
+            <li style="width:50%; 
+            float:left; 
+            display:inline-block; "><input type="email" ng-model="email" /></li>
+        </ul>
+        <ul style="padding:0;
+            margin:2px 5px; 
+            list-style:none; 
+            border:0; 
+            float:left; 
+            width:100%;">
+            <li></li><li><button type="button" class="btn btn-primary" ng-click="addRow()"> Add Data </button></li>
+        </ul>
+         
+
+         <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search for name " ng-model="searchname ">
+      </div>      
+    </div>
+  </form>
+        <!--CREATE A TABLE-->
+        <table class="table table-bordered table-striped"> 
+            <tr>
+                <th>Serial No</th>
+                    <th <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+            Name
+            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+          </a></th>
+                        <th>Gift Value(Rs)</th>
+                        <th>phnnumber No</th>
+                        
+                        <th>Email ID</th>
+                        <th>check box</th>
+                        <th>Mark</th>
+            </tr>
+
+            <tr ng-repeat="movies in movieArray | orderBy:sortType:sortReverse | filter:searchname " ng-class="{'green': movies.name == 'ABC123', 'red': movies.checked == true}">
+                <td><label>{{$index + 1}}</label></td>
+                <td><label>{{movies.name}}</label></td>
+                <td><label>{{movies.gift}}</label></td>
+                <td><label>{{movies.phnnumber}}</label></td>
+                <td><label>{{movies.email}}</label></td>
+                <td><input type="checkbox" ng-model="movies.Remove"/></td>
+                <td><input type='checkbox' class='highlight' ng-model="movies.checked"/></td>
+            </tr>
+        </table>
+
+        <div>
+           <!------ <button ng-click="submit()">Submit Data</button>  --------------> 
+                <button type="button" class="btn btn-danger" ng-click="removeRow()">Remove Row</button>
+        </div>
+
+        <div id="display" style="padding:10px 0;">{{display}}</div>
+    </div>
+
+
+
+</div>
+
+ <p class="text-center">
+   Powered by <a href="https://capitalquotient.com/" target="_blank">CapitalQuotient.com</a>
+  </p>
+  
+
+
+</div>
+
+<script src="js/index.js"></script>
